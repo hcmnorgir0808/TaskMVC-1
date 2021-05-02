@@ -24,6 +24,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         guard let vc = UIStoryboard(name: MVCSearchViewController.className, bundle: nil).instantiateInitialViewController() as? MVCSearchViewController else {
             return false
         }
+        
+        let repository = GithubSearchRepositoryImpl()
+        vc.inject(repository: repository)
 
         let nav = UINavigationController(rootViewController: vc)
         window.rootViewController = nav

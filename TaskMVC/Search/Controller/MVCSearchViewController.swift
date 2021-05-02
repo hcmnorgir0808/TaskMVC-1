@@ -35,7 +35,12 @@ final class MVCSearchViewController: UIViewController, UITableViewDelegate, UITa
         }
     }
     
+    var repository: GithubSearchRepository?
     var githubSearchModels = [GithubSearchModel]()
+    
+    func inject(repository: GithubSearchRepository) {
+        self.repository = repository
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,29 +49,22 @@ final class MVCSearchViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     @objc func tapSearchButton(_sender: UIResponder) {
+        guard let searchText = searchTextField.text, !searchText.isEmpty else { return }
+        
         indicator.isHidden = false
         tableView.isHidden = true
-        let url: URL = URL(string: "https://api.github.com/search/repositories?q=\(searchTextField.text!)&sort=stars")!
-        let task: URLSessionTask = URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
+
+        repository?.request(searchText: searchText) { [weak self] githubSearchModels in
             
-            guard let dic = try? JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any],
-                  let responseItems = dic["items"] as? [[String: Any]]
-            else {
-                return
-            }
-            
-            self.githubSearchModels = responseItems.map({ (item) -> (GithubSearchModel) in
-                let fullName = item["full_name"] as! String
-                return GithubSearchModel(title: fullName)
-            })
+            guard let self = self else { return }
+            self.githubSearchModels = githubSearchModels
             
             DispatchQueue.main.async {
                 self.indicator.isHidden = true
                 self.tableView.isHidden = false
                 self.tableView.reloadData()
             }
-        })
-        task.resume()
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

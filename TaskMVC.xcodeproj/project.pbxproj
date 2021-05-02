@@ -18,6 +18,8 @@
 		B68AF88325F8A47F0067086D /* MVCSearchViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B68AF88125F8A47F0067086D /* MVCSearchViewController.storyboard */; };
 		C649B32C263E815B00C3CB4C /* NSObject+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C649B32B263E815B00C3CB4C /* NSObject+.swift */; };
 		C649B32F263E8D3C00C3CB4C /* GithubSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C649B32E263E8D3C00C3CB4C /* GithubSearchModel.swift */; };
+		C649B331263E926900C3CB4C /* GithubSearchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C649B330263E926900C3CB4C /* GithubSearchRepository.swift */; };
+		C649B333263E94D900C3CB4C /* GithubSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C649B332263E94D900C3CB4C /* GithubSearchResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		B68AF88125F8A47F0067086D /* MVCSearchViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MVCSearchViewController.storyboard; sourceTree = "<group>"; };
 		C649B32B263E815B00C3CB4C /* NSObject+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+.swift"; sourceTree = "<group>"; };
 		C649B32E263E8D3C00C3CB4C /* GithubSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubSearchModel.swift; sourceTree = "<group>"; };
+		C649B330263E926900C3CB4C /* GithubSearchRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubSearchRepository.swift; sourceTree = "<group>"; };
+		C649B332263E94D900C3CB4C /* GithubSearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubSearchResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,7 +137,9 @@
 		C649B32D263E8CF000C3CB4C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C649B332263E94D900C3CB4C /* GithubSearchResponse.swift */,
 				C649B32E263E8D3C00C3CB4C /* GithubSearchModel.swift */,
+				C649B330263E926900C3CB4C /* GithubSearchRepository.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -215,7 +221,9 @@
 				B68AF84B25F855AC0067086D /* AppDelegate.swift in Sources */,
 				C649B32F263E8D3C00C3CB4C /* GithubSearchModel.swift in Sources */,
 				B68AF88225F8A47F0067086D /* MVCSearchViewController.swift in Sources */,
+				C649B333263E94D900C3CB4C /* GithubSearchResponse.swift in Sources */,
 				B6030F2425F8CBFD004027AC /* WebViewController.swift in Sources */,
+				C649B331263E926900C3CB4C /* GithubSearchRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
