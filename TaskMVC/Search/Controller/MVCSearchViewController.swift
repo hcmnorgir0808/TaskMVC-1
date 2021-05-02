@@ -17,78 +17,78 @@ import UIKit
  修正してMVCにしてください
 */
 final class MVCSearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
-  @IBOutlet weak var searchTextField: UITextField!
-  @IBOutlet weak var searchButton: UIButton! {
-    didSet {
-      searchButton.addTarget(self, action: #selector(tapSearchButton(_sender:)), for: .touchUpInside)
+    
+    @IBOutlet weak var searchTextField: UITextField!
+    @IBOutlet weak var searchButton: UIButton! {
+        didSet {
+            searchButton.addTarget(self, action: #selector(tapSearchButton(_sender:)), for: .touchUpInside)
+        }
     }
-  }
-
-  @IBOutlet weak var indicator: UIActivityIndicatorView!
-
-  @IBOutlet weak var tableView: UITableView! {
-    didSet {
-      tableView.register(UINib.init(nibName: MVCTableViewCell.className, bundle: nil), forCellReuseIdentifier: MVCTableViewCell.className)
-      tableView.delegate = self
-      tableView.dataSource = self
+    
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
+    
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
+            tableView.register(UINib.init(nibName: MVCTableViewCell.className, bundle: nil), forCellReuseIdentifier: MVCTableViewCell.className)
+            tableView.delegate = self
+            tableView.dataSource = self
+        }
     }
-  }
-
-  var items: [(title: String, urlStr: String)] = []
-
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    tableView.isHidden = true
-    indicator.isHidden = true
-  }
-
-  @objc func tapSearchButton(_sender: UIResponder) {
-    indicator.isHidden = false
-    tableView.isHidden = true
-    let url: URL = URL(string: "https://api.github.com/search/repositories?q=\(searchTextField.text!)&sort=stars")!
-    let task: URLSessionTask = URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
-
-      guard let dic = try? JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any],
-            let responseItems = dic["items"] as? [[String: Any]]
+    
+    var items: [(title: String, urlStr: String)] = []
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.isHidden = true
+        indicator.isHidden = true
+    }
+    
+    @objc func tapSearchButton(_sender: UIResponder) {
+        indicator.isHidden = false
+        tableView.isHidden = true
+        let url: URL = URL(string: "https://api.github.com/search/repositories?q=\(searchTextField.text!)&sort=stars")!
+        let task: URLSessionTask = URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
+            
+            guard let dic = try? JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any],
+                  let responseItems = dic["items"] as? [[String: Any]]
             else {
-        return
-      }
-
-      self.items = responseItems.map({ (item) -> (String, String) in
-        let fullName = item["full_name"] as! String
-        return (fullName, "https://github.com/\(fullName)")
-      })
-
-      DispatchQueue.main.async {
-        self.indicator.isHidden = true
-        self.tableView.isHidden = false
-        self.tableView.reloadData()
-      }
-    })
-    task.resume()
-  }
-
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    tableView.deselectRow(at: indexPath, animated: true)
-    let vc = UIStoryboard.init(name: "Web", bundle: nil).instantiateInitialViewController() as! WebViewController
-    vc.urlStr = items[indexPath.item].urlStr
-
-    let nav = self.navigationController
-    nav?.pushViewController(vc, animated: true)
-  }
-
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    items.count
-  }
-
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(withIdentifier: MVCTableViewCell.className) as? MVCTableViewCell else {
-      fatalError()
+                return
+            }
+            
+            self.items = responseItems.map({ (item) -> (String, String) in
+                let fullName = item["full_name"] as! String
+                return (fullName, "https://github.com/\(fullName)")
+            })
+            
+            DispatchQueue.main.async {
+                self.indicator.isHidden = true
+                self.tableView.isHidden = false
+                self.tableView.reloadData()
+            }
+        })
+        task.resume()
     }
-    cell.titleLabel.text = items[indexPath.item].title
-    cell.urlLabel.text = items[indexPath.item].urlStr
-    return cell
-
-  }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let vc = UIStoryboard.init(name: "Web", bundle: nil).instantiateInitialViewController() as! WebViewController
+        vc.urlStr = items[indexPath.item].urlStr
+        
+        let nav = self.navigationController
+        nav?.pushViewController(vc, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        items.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MVCTableViewCell.className) as? MVCTableViewCell else {
+            fatalError()
+        }
+        cell.titleLabel.text = items[indexPath.item].title
+        cell.urlLabel.text = items[indexPath.item].urlStr
+        return cell
+        
+    }
 }
