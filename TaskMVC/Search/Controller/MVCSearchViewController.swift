@@ -18,16 +18,16 @@ import UIKit
 */
 final class MVCSearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet weak var searchTextField: UITextField!
-    @IBOutlet weak var searchButton: UIButton! {
+    @IBOutlet private weak var searchTextField: UITextField!
+    @IBOutlet private weak var searchButton: UIButton! {
         didSet {
             searchButton.addTarget(self, action: #selector(tapSearchButton(_sender:)), for: .touchUpInside)
         }
     }
     
-    @IBOutlet weak var indicator: UIActivityIndicatorView!
+    @IBOutlet private weak var indicator: UIActivityIndicatorView!
     
-    @IBOutlet weak var tableView: UITableView! {
+    @IBOutlet private weak var tableView: UITableView! {
         didSet {
             tableView.register(UINib.init(nibName: MVCTableViewCell.className, bundle: nil), forCellReuseIdentifier: MVCTableViewCell.className)
             tableView.delegate = self
@@ -35,8 +35,8 @@ final class MVCSearchViewController: UIViewController, UITableViewDelegate, UITa
         }
     }
     
-    var repository: GithubSearchRepository?
-    var githubSearchModels = [GithubSearchModel]()
+    private var repository: GithubSearchRepository?
+    private var githubSearchModels = [GithubSearchModel]()
     
     func inject(repository: GithubSearchRepository) {
         self.repository = repository
@@ -48,7 +48,7 @@ final class MVCSearchViewController: UIViewController, UITableViewDelegate, UITa
         indicator.isHidden = true
     }
     
-    @objc func tapSearchButton(_sender: UIResponder) {
+    @objc private func tapSearchButton(_sender: UIResponder) {
         guard let searchText = searchTextField.text, !searchText.isEmpty else { return }
         
         indicator.isHidden = false
