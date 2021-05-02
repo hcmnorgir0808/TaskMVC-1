@@ -15,7 +15,8 @@
 		B68AF86B25F8566C0067086D /* MVCTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B68AF86A25F8566C0067086D /* MVCTableViewCell.xib */; };
 		B68AF86E25F856860067086D /* MVCTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B68AF86D25F856860067086D /* MVCTableViewCell.swift */; };
 		B68AF88225F8A47F0067086D /* MVCSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B68AF88025F8A47F0067086D /* MVCSearchViewController.swift */; };
-		B68AF88325F8A47F0067086D /* MVCSearch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B68AF88125F8A47F0067086D /* MVCSearch.storyboard */; };
+		B68AF88325F8A47F0067086D /* MVCSearchViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B68AF88125F8A47F0067086D /* MVCSearchViewController.storyboard */; };
+		C649B32C263E815B00C3CB4C /* NSObject+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C649B32B263E815B00C3CB4C /* NSObject+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,7 +30,8 @@
 		B68AF86A25F8566C0067086D /* MVCTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MVCTableViewCell.xib; sourceTree = "<group>"; };
 		B68AF86D25F856860067086D /* MVCTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVCTableViewCell.swift; sourceTree = "<group>"; };
 		B68AF88025F8A47F0067086D /* MVCSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MVCSearchViewController.swift; sourceTree = "<group>"; };
-		B68AF88125F8A47F0067086D /* MVCSearch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MVCSearch.storyboard; sourceTree = "<group>"; };
+		B68AF88125F8A47F0067086D /* MVCSearchViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MVCSearchViewController.storyboard; sourceTree = "<group>"; };
+		C649B32B263E815B00C3CB4C /* NSObject+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 				B68AF85525F855AC0067086D /* LaunchScreen.storyboard */,
 				B6030F1D25F8CB92004027AC /* Search */,
 				B6030F1F25F8CBFD004027AC /* Web */,
+				C649B32A263E813800C3CB4C /* Extension */,
 			);
 			path = TaskMVC;
 			sourceTree = "<group>";
@@ -111,9 +114,17 @@
 			isa = PBXGroup;
 			children = (
 				B68AF88025F8A47F0067086D /* MVCSearchViewController.swift */,
-				B68AF88125F8A47F0067086D /* MVCSearch.storyboard */,
+				B68AF88125F8A47F0067086D /* MVCSearchViewController.storyboard */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		C649B32A263E813800C3CB4C /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				C649B32B263E815B00C3CB4C /* NSObject+.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,7 +188,7 @@
 				B68AF86B25F8566C0067086D /* MVCTableViewCell.xib in Resources */,
 				B6030F2325F8CBFD004027AC /* Web.storyboard in Resources */,
 				B68AF85425F855AC0067086D /* Assets.xcassets in Resources */,
-				B68AF88325F8A47F0067086D /* MVCSearch.storyboard in Resources */,
+				B68AF88325F8A47F0067086D /* MVCSearchViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,6 +199,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C649B32C263E815B00C3CB4C /* NSObject+.swift in Sources */,
 				B68AF86E25F856860067086D /* MVCTableViewCell.swift in Sources */,
 				B68AF84B25F855AC0067086D /* AppDelegate.swift in Sources */,
 				B68AF88225F8A47F0067086D /* MVCSearchViewController.swift in Sources */,
@@ -331,6 +343,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 64GN3PDULA;
 				INFOPLIST_FILE = TaskMVC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -349,6 +362,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 64GN3PDULA;
 				INFOPLIST_FILE = TaskMVC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

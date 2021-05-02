@@ -14,8 +14,6 @@ import UIKit
  */
 final class MVCTableViewCell: UITableViewCell {
 
-  static var className: String { String(describing: MVCTableViewCell.self) }
-
   @IBOutlet weak var titleLabel: UILabel!
   @IBOutlet weak var urlLabel: UILabel!
 
