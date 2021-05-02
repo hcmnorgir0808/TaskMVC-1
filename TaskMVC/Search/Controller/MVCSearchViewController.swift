@@ -35,7 +35,7 @@ final class MVCSearchViewController: UIViewController, UITableViewDelegate, UITa
         }
     }
     
-    var items: [(title: String, urlStr: String)] = []
+    var githubSearchModels = [GithubSearchModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,9 +55,9 @@ final class MVCSearchViewController: UIViewController, UITableViewDelegate, UITa
                 return
             }
             
-            self.items = responseItems.map({ (item) -> (String, String) in
+            self.githubSearchModels = responseItems.map({ (item) -> (GithubSearchModel) in
                 let fullName = item["full_name"] as! String
-                return (fullName, "https://github.com/\(fullName)")
+                return GithubSearchModel(title: fullName)
             })
             
             DispatchQueue.main.async {
@@ -72,22 +72,22 @@ final class MVCSearchViewController: UIViewController, UITableViewDelegate, UITa
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let vc = UIStoryboard.init(name: "Web", bundle: nil).instantiateInitialViewController() as! WebViewController
-        vc.urlStr = items[indexPath.item].urlStr
+        vc.urlStr = githubSearchModels[indexPath.item].urlString
         
         let nav = self.navigationController
         nav?.pushViewController(vc, animated: true)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        items.count
+        githubSearchModels.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MVCTableViewCell.className) as? MVCTableViewCell else {
             fatalError()
         }
-        cell.titleLabel.text = items[indexPath.item].title
-        cell.urlLabel.text = items[indexPath.item].urlStr
+        cell.titleLabel.text = githubSearchModels[indexPath.item].title
+        cell.urlLabel.text = githubSearchModels[indexPath.item].urlString
         return cell
         
     }

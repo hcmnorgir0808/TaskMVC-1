@@ -17,6 +17,7 @@
 		B68AF88225F8A47F0067086D /* MVCSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B68AF88025F8A47F0067086D /* MVCSearchViewController.swift */; };
 		B68AF88325F8A47F0067086D /* MVCSearchViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B68AF88125F8A47F0067086D /* MVCSearchViewController.storyboard */; };
 		C649B32C263E815B00C3CB4C /* NSObject+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C649B32B263E815B00C3CB4C /* NSObject+.swift */; };
+		C649B32F263E8D3C00C3CB4C /* GithubSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C649B32E263E8D3C00C3CB4C /* GithubSearchModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		B68AF88025F8A47F0067086D /* MVCSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MVCSearchViewController.swift; sourceTree = "<group>"; };
 		B68AF88125F8A47F0067086D /* MVCSearchViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MVCSearchViewController.storyboard; sourceTree = "<group>"; };
 		C649B32B263E815B00C3CB4C /* NSObject+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+.swift"; sourceTree = "<group>"; };
+		C649B32E263E8D3C00C3CB4C /* GithubSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubSearchModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +50,7 @@
 		B6030F1D25F8CB92004027AC /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				C649B32D263E8CF000C3CB4C /* Model */,
 				B68AF87F25F8A47F0067086D /* Controller */,
 				B68AF86925F856510067086D /* View */,
 			);
@@ -127,6 +130,14 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		C649B32D263E8CF000C3CB4C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C649B32E263E8D3C00C3CB4C /* GithubSearchModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -202,6 +213,7 @@
 				C649B32C263E815B00C3CB4C /* NSObject+.swift in Sources */,
 				B68AF86E25F856860067086D /* MVCTableViewCell.swift in Sources */,
 				B68AF84B25F855AC0067086D /* AppDelegate.swift in Sources */,
+				C649B32F263E8D3C00C3CB4C /* GithubSearchModel.swift in Sources */,
 				B68AF88225F8A47F0067086D /* MVCSearchViewController.swift in Sources */,
 				B6030F2425F8CBFD004027AC /* WebViewController.swift in Sources */,
 			);
