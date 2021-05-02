@@ -84,9 +84,7 @@ final class MVCSearchViewController: UIViewController, UITableViewDelegate, UITa
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MVCTableViewCell.className) as? MVCTableViewCell else {
             fatalError()
         }
-        cell.titleLabel.text = githubSearchModels[indexPath.item].title
-        cell.urlLabel.text = githubSearchModels[indexPath.item].urlString
+        cell.configure(model: githubSearchModels[indexPath.row])
         return cell
-        
     }
 }

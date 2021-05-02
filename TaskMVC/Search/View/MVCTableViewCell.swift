@@ -13,14 +13,19 @@ import UIKit
 
  */
 final class MVCTableViewCell: UITableViewCell {
-
-  @IBOutlet weak var titleLabel: UILabel!
-  @IBOutlet weak var urlLabel: UILabel!
-
-  override func prepareForReuse() {
-    super.prepareForReuse()
-    titleLabel.text = nil
-    urlLabel.text = nil
-  }
+    
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var urlLabel: UILabel!
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        titleLabel.text = nil
+        urlLabel.text = nil
+    }
+    
+    func configure(model: GithubSearchModel) {
+        titleLabel.text = model.title
+        urlLabel.text = model.urlString
+    }
 }
 
