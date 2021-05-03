@@ -36,10 +36,12 @@ final class MVCSearchViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     private var repository: GithubSearchRepository?
+    private var router: GithubSearchRouter?
     private var githubSearchModels = [GithubSearchModel]()
     
-    func inject(repository: GithubSearchRepository) {
+    func inject(repository: GithubSearchRepository, router: GithubSearchRouter) {
         self.repository = repository
+        self.router = router
     }
     
     override func viewDidLoad() {
@@ -69,11 +71,8 @@ final class MVCSearchViewController: UIViewController, UITableViewDelegate, UITa
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let vc = UIStoryboard.init(name: "Web", bundle: nil).instantiateInitialViewController() as! WebViewController
-        vc.urlStr = githubSearchModels[indexPath.item].urlString
         
-        let nav = self.navigationController
-        nav?.pushViewController(vc, animated: true)
+        router?.transitionToWebView(model: githubSearchModels[indexPath.row], animated: true)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

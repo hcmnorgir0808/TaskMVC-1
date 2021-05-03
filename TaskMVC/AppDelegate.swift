@@ -25,8 +25,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return false
         }
         
+        let router = GithubSearchRouterImpl(view: vc)
+        
         let repository = GithubSearchRepositoryImpl()
-        vc.inject(repository: repository)
+        vc.inject(repository: repository, router: router)
 
         let nav = UINavigationController(rootViewController: vc)
         window.rootViewController = nav
