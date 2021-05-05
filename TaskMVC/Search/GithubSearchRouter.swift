@@ -12,19 +12,21 @@ protocol GithubSearchRouter {
     func transitionToWebView(model: GithubSearchModel, animated: Bool)
 }
 
-class GithubSearchRouterImpl: GithubSearchRouter {
+final class GithubSearchRouterImpl: GithubSearchRouter {
     
-    private weak var view: UIViewController?
+    private weak var viewController: UIViewController?
     
-    init(view: UIViewController) {
-        self.view = view
+    init(viewController: UIViewController) {
+        self.viewController = viewController
     }
     
     func transitionToWebView(model: GithubSearchModel, animated: Bool) {
-        guard let vc = UIStoryboard(name: WebViewController.className, bundle: nil).instantiateInitialViewController() as? WebViewController else { return }
+        guard let vc = UIStoryboard(name: WebViewController.className, bundle: nil).instantiateInitialViewController() as? WebViewController,
+              let nav = viewController?.navigationController else {
+            // 遷移できない場合はクラッシュさせる
+            fatalError()
+        }
         vc.inject(githubSearchModel: model)
-        
-        let nav = view?.navigationController
-        nav?.pushViewController(vc, animated: animated)
+        nav.pushViewController(vc, animated: animated)
     }
 }

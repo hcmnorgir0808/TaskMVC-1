@@ -13,7 +13,7 @@ import UIKit
  */
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+final class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return false
         }
         
-        let router = GithubSearchRouterImpl(view: vc)
+        let router = GithubSearchRouterImpl(viewController: vc)
         
         let repository = GithubSearchRepositoryImpl()
         vc.inject(repository: repository, router: router)

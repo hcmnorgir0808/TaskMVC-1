@@ -28,4 +28,3 @@ final class MVCTableViewCell: UITableViewCell {
         urlLabel.text = model.urlString
     }
 }
-

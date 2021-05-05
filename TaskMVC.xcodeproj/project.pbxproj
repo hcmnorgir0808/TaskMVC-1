@@ -21,6 +21,7 @@
 		C649B331263E926900C3CB4C /* GithubSearchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C649B330263E926900C3CB4C /* GithubSearchRepository.swift */; };
 		C649B333263E94D900C3CB4C /* GithubSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C649B332263E94D900C3CB4C /* GithubSearchResponse.swift */; };
 		C6C19E8B263EFC3D00010560 /* GithubSearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C19E8A263EFC3C00010560 /* GithubSearchRouter.swift */; };
+		C6E18EE82642792A007D1AB9 /* GithubSearchError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E18EE72642792A007D1AB9 /* GithubSearchError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		C649B330263E926900C3CB4C /* GithubSearchRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubSearchRepository.swift; sourceTree = "<group>"; };
 		C649B332263E94D900C3CB4C /* GithubSearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubSearchResponse.swift; sourceTree = "<group>"; };
 		C6C19E8A263EFC3C00010560 /* GithubSearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubSearchRouter.swift; sourceTree = "<group>"; };
+		C6E18EE72642792A007D1AB9 /* GithubSearchError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubSearchError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +145,7 @@
 				C649B332263E94D900C3CB4C /* GithubSearchResponse.swift */,
 				C649B32E263E8D3C00C3CB4C /* GithubSearchModel.swift */,
 				C649B330263E926900C3CB4C /* GithubSearchRepository.swift */,
+				C6E18EE72642792A007D1AB9 /* GithubSearchError.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -226,6 +229,7 @@
 				C6C19E8B263EFC3D00010560 /* GithubSearchRouter.swift in Sources */,
 				B68AF88225F8A47F0067086D /* MVCSearchViewController.swift in Sources */,
 				C649B333263E94D900C3CB4C /* GithubSearchResponse.swift in Sources */,
+				C6E18EE82642792A007D1AB9 /* GithubSearchError.swift in Sources */,
 				B6030F2425F8CBFD004027AC /* WebViewController.swift in Sources */,
 				C649B331263E926900C3CB4C /* GithubSearchRepository.swift in Sources */,
 			);
@@ -367,7 +371,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 64GN3PDULA;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = TaskMVC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -386,7 +390,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 64GN3PDULA;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = TaskMVC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

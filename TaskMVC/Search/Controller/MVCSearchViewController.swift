@@ -16,7 +16,7 @@ import UIKit
  画面遷移の処理が直接ViewControllerに書かれています
  修正してMVCにしてください
 */
-final class MVCSearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+final class MVCSearchViewController: UIViewController {
     
     @IBOutlet private weak var searchTextField: UITextField!
     @IBOutlet private weak var searchButton: UIButton! {
@@ -51,30 +51,35 @@ final class MVCSearchViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     @objc private func tapSearchButton(_sender: UIResponder) {
-        guard let searchText = searchTextField.text, !searchText.isEmpty else { return }
-        
         indicator.isHidden = false
         tableView.isHidden = true
 
-        repository?.request(searchText: searchText) { [weak self] githubSearchModels in
-            
-            guard let self = self else { return }
-            self.githubSearchModels = githubSearchModels
-            
+        repository?.request(searchText: searchTextField.text) { [weak self] result in
+            switch result {
+            case .success(let models):
+                
+                self?.githubSearchModels = models
+            case .failure(_):
+                self?.githubSearchModels = []
+            }
             DispatchQueue.main.async {
-                self.indicator.isHidden = true
-                self.tableView.isHidden = false
-                self.tableView.reloadData()
+                self?.indicator.isHidden = true
+                self?.tableView.isHidden = false
+                self?.tableView.reloadData()
             }
         }
     }
-    
+}
+
+extension MVCSearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
         router?.transitionToWebView(model: githubSearchModels[indexPath.row], animated: true)
     }
-    
+}
+
+extension MVCSearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         githubSearchModels.count
     }
