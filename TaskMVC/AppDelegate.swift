@@ -13,20 +13,27 @@ import UIKit
  */
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+final class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    var window: UIWindow?
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        let window = UIWindow(frame: UIScreen.main.bounds)
+        
+        guard let vc = UIStoryboard(name: MVCSearchViewController.className, bundle: nil).instantiateInitialViewController() as? MVCSearchViewController else {
+            return false
+        }
+        
+        let router = GithubSearchRouterImpl(viewController: vc)
+        
+        let repository = GithubSearchRepositoryImpl()
+        vc.inject(repository: repository, router: router)
 
-
-  var window: UIWindow?
-
-  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
-    let window = UIWindow(frame: UIScreen.main.bounds)
-    let vc = UIStoryboard.init(name: "MVCSearch", bundle: nil).instantiateInitialViewController()!
-    let nav = UINavigationController(rootViewController: vc)
-    window.rootViewController = nav
-    window.makeKeyAndVisible()
-    self.window = window
-    return true
-  }
+        let nav = UINavigationController(rootViewController: vc)
+        window.rootViewController = nav
+        window.makeKeyAndVisible()
+        self.window = window
+        return true
+    }
 }
-

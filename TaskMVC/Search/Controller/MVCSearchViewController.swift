@@ -16,79 +16,79 @@ import UIKit
  画面遷移の処理が直接ViewControllerに書かれています
  修正してMVCにしてください
 */
-final class MVCSearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
-  @IBOutlet weak var searchTextField: UITextField!
-  @IBOutlet weak var searchButton: UIButton! {
-    didSet {
-      searchButton.addTarget(self, action: #selector(tapSearchButton(_sender:)), for: .touchUpInside)
+final class MVCSearchViewController: UIViewController {
+    
+    @IBOutlet private weak var searchTextField: UITextField!
+    @IBOutlet private weak var searchButton: UIButton! {
+        didSet {
+            searchButton.addTarget(self, action: #selector(tapSearchButton(_sender:)), for: .touchUpInside)
+        }
     }
-  }
-
-  @IBOutlet weak var indicator: UIActivityIndicatorView!
-
-  @IBOutlet weak var tableView: UITableView! {
-    didSet {
-      tableView.register(UINib.init(nibName: MVCTableViewCell.className, bundle: nil), forCellReuseIdentifier: MVCTableViewCell.className)
-      tableView.delegate = self
-      tableView.dataSource = self
+    
+    @IBOutlet private weak var indicator: UIActivityIndicatorView!
+    
+    @IBOutlet private weak var tableView: UITableView! {
+        didSet {
+            tableView.register(UINib.init(nibName: MVCTableViewCell.className, bundle: nil), forCellReuseIdentifier: MVCTableViewCell.className)
+            tableView.delegate = self
+            tableView.dataSource = self
+        }
     }
-  }
-
-  var items: [(title: String, urlStr: String)] = []
-
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    tableView.isHidden = true
-    indicator.isHidden = true
-  }
-
-  @objc func tapSearchButton(_sender: UIResponder) {
-    indicator.isHidden = false
-    tableView.isHidden = true
-    let url: URL = URL(string: "https://api.github.com/search/repositories?q=\(searchTextField.text!)&sort=stars")!
-    let task: URLSessionTask = URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
-
-      guard let dic = try? JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any],
-            let responseItems = dic["items"] as? [[String: Any]]
-            else {
-        return
-      }
-
-      self.items = responseItems.map({ (item) -> (String, String) in
-        let fullName = item["full_name"] as! String
-        return (fullName, "https://github.com/\(fullName)")
-      })
-
-      DispatchQueue.main.async {
-        self.indicator.isHidden = true
-        self.tableView.isHidden = false
-        self.tableView.reloadData()
-      }
-    })
-    task.resume()
-  }
-
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    tableView.deselectRow(at: indexPath, animated: true)
-    let vc = UIStoryboard.init(name: "Web", bundle: nil).instantiateInitialViewController() as! WebViewController
-    vc.urlStr = items[indexPath.item].urlStr
-
-    let nav = self.navigationController
-    nav?.pushViewController(vc, animated: true)
-  }
-
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    items.count
-  }
-
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(withIdentifier: MVCTableViewCell.className) as? MVCTableViewCell else {
-      fatalError()
+    
+    private var repository: GithubSearchRepository?
+    private var router: GithubSearchRouter?
+    private var githubSearchModels = [GithubSearchModel]()
+    
+    func inject(repository: GithubSearchRepository, router: GithubSearchRouter) {
+        self.repository = repository
+        self.router = router
     }
-    cell.titleLabel.text = items[indexPath.item].title
-    cell.urlLabel.text = items[indexPath.item].urlStr
-    return cell
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.isHidden = true
+        indicator.isHidden = true
+    }
+    
+    @objc private func tapSearchButton(_sender: UIResponder) {
+        indicator.isHidden = false
+        tableView.isHidden = true
 
-  }
+        repository?.request(searchText: searchTextField.text) { [weak self] result in
+            switch result {
+            case .success(let models):
+                
+                self?.githubSearchModels = models
+            case .failure(_):
+                self?.githubSearchModels = []
+            }
+            DispatchQueue.main.async {
+                self?.indicator.isHidden = true
+                self?.tableView.isHidden = false
+                self?.tableView.reloadData()
+            }
+        }
+    }
+}
+
+extension MVCSearchViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        router?.transitionToWebView(model: githubSearchModels[indexPath.row], animated: true)
+    }
+}
+
+extension MVCSearchViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        githubSearchModels.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MVCTableViewCell.className) as? MVCTableViewCell else {
+            fatalError()
+        }
+        cell.configure(model: githubSearchModels[indexPath.row])
+        return cell
+    }
 }
